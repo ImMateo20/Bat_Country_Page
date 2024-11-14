@@ -1,0 +1,34 @@
+<%- include('../partials/header.ejs') %>
+    <main class="p-1 h-100 text-bg-dark">
+
+        <%- include('navbar.ejs') %>
+            <div class="p-5 d-flex flex-column gap-3">
+
+                <% bandas.forEach(banda=> { %>
+                    <div class="card text-start d-flex flex-row rounded-5 align-items-center" style="height: 350px;">
+                        <% if (banda.foto) { %>
+                            <img class="card-img-top rounded-5 w-50" style="height: 348px"
+                                src="data:image/jpeg;base64, <%= banda.foto.toString('base64') %>" alt="Title" />
+                            <% } %>
+                                <div class="card-body">
+                                    <h2 class="card-title align-self-center">
+                                        <%= banda.nombre%>
+                                    </h2>
+                                    <p class="card-text">
+                                        <%= banda.descripcion %>
+                                    </p>
+                                </div>
+                    </div>
+
+                    <% }); %>
+            </div>
+
+            <form action="/bandas/insertar" method="post" enctype="multipart/form-data">
+                <input id="nombre-banda" type="text" name="nombre" placeholder="Nombre de la banda">
+                <input id="descripcion-banda" type="text" name="descripcion" placeholder="Descripcion de la banda">
+                <input id="foto-banda" type="file" name="foto">
+                <button id="botonEnviarBanda" type="submit">Agregar banda</button>
+            </form>
+
+    </main>
+    <%- include('../partials/footer.ejs') %>

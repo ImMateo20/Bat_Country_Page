@@ -1,0 +1,56 @@
+<%- include('../partials/header.ejs') %>
+    <main class="p-1 text-bg-dark" style="height: 100vh;">
+
+        <%- include('navbar.ejs') %>
+            <div class="p-3 d-flex flex-wrap gap-3 justify-content-center">
+                <% if (productos.length !==0) { %>
+
+                    <% productos.forEach(producto=> { %>
+                        <div class="card text-center rounded-5 align-items-center justify-content-center"
+                            style="overflow: hidden;width:23%;height:500px">
+                            <% if (producto.imagen) { %>
+                                <img class="card-img-top h-50"
+                                    src="data:image/jpeg;base64, <%= producto.imagen.toString('base64') %>"
+                                    alt="Title" />
+                                <% } %>
+                                    <div class="card-body">
+                                        <h4 class="card-title">
+                                            <%= producto.nombre%>
+                                        </h4>
+                                        <p class="card-text">
+                                            <%= producto.descripcion %>
+                                        </p>
+                                        <p class="card-text">
+                                            Cantidad: <%= producto.cantidad %>
+                                        </p>
+                                        <p class="card-text">
+                                            Precio $: <%= producto.precio %>
+                                        </p>
+                                    </div>
+                        </div>
+
+                        <% }); %>
+            </div>
+            <% } else { %>
+                <h2>Aún no hay productos en venta</h2>
+                <% } %>
+
+
+                    <form class="" action="/productos/insertar" method="post" enctype="multipart/form-data">
+                        <input id="nombre-producto" type="text" name="nombre" placeholder="Nombre producto">
+                        <input id="descripcion-producto" type="text" name="descripcion" placeholder="Descripcion">
+                        <input type="number" placeholder="Cantidad" name="cantidad">
+                        <input type="number" min="0" step=".5" placeholder="Precio" name="precio">
+                        <select name="banda_id" id="">
+                            <% bandas.forEach(banda=> { %>
+                                <option value="<%= banda.id %>">
+                                    <%= banda.nombre %>
+                                </option>
+                                <% }) %>
+                        </select>
+                        <input id="foto-producto" type="file" name="imagen">
+                        <button id="botonEnviarproducto" type="submit">Agregar producto</button>
+                    </form>
+
+    </main>
+    <%- include('../partials/footer.ejs') %>

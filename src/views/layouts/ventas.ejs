@@ -12,12 +12,18 @@
             <canvas id="productosMasVendidos" width="400" height="200"></canvas>
         </div>
         <div class="container mt-5">
-            <h1 class="text-center">Ventas por Hora en las Últimas 5 Horas</h1>
+            <h1 class="text-center">Ventas por Hora en las Últimas 24 Horas</h1>
             <canvas id="ventasPorHora" width="400" height="200"></canvas>
+        </div>
+        <div class="container mt-5">
+            <h1 class="text-center">Ventas por Día en la Última Semana</h1>
+            <canvas id="ventasPorDia" width="400" height="200"></canvas>
         </div>
 
         <script>
-            fetch('/ventas/productos-mas-vendidos')
+
+
+            fetch('/administrador/productos-mas-vendidos')
                 .then(response => response.json())
                 .then(data => {
                     const labels = data.map(item => item.producto);
@@ -25,7 +31,7 @@
 
                     const ctx = document.getElementById('productosMasVendidos').getContext('2d');
                     new Chart(ctx, {
-                        type: 'bar', 
+                        type: 'bar',
                         data: {
                             labels: labels,
                             datasets: [{
@@ -55,22 +61,26 @@
                 })
                 .catch(err => console.error(err));
 
-            fetch('/ventas/ventas-ultimas-horas')
+
+
+            fetch('/administrador/ventas-ultimo-dia')
                 .then(response => response.json())
                 .then(data => {
+
                     const labels = [];
                     const valores = [];
 
-                    for (let i = 5; i > 0; i--) {
-                        const hora = data.find(item => item.hora === i);
-                        labels.push(`Hace ${i} hora(s)`);
-                        valores.push(hora ? hora.total_ventas : 0);
+
+                    for (let i = 0; i < 24; i++) {
+                        const horaData = data.find(item => item.hora === i);
+                        labels.push(`${i}:00`);
+                        valores.push(horaData ? horaData.total_ventas : 0);
                     }
 
-                    // Crear el gráfico con Chart.js
+
                     const ctx = document.getElementById('ventasPorHora').getContext('2d');
                     new Chart(ctx, {
-                        type: 'line', 
+                        type: 'line',
                         data: {
                             labels: labels,
                             datasets: [{
@@ -78,20 +88,74 @@
                                 data: valores,
                                 fill: false,
                                 borderColor: 'rgba(75, 192, 192, 1)',
-                                tension: 0.1 
+                                tension: 0.1
                             }]
                         },
                         options: {
                             responsive: true,
                             scales: {
                                 y: {
-                                    beginAtZero: true,
+                                    beginAtZero: true
+                                },
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: 'Hora del Día'
+                                    }
                                 }
                             }
                         }
                     });
                 })
                 .catch(err => console.error(err));
+
+            fetch('/administrador/ventas-ultima-semana')
+                .then(response => response.json())
+                .then(data => {
+                    const labels = [];
+                    const valores = [];
+
+                    for (let i = 6; i >= 0; i--) {
+                        const fecha = new Date();
+                        fecha.setDate(fecha.getDate() - i);
+                        const diaFormateado = fecha.toISOString().split('T')[0];
+
+                        labels.push(fecha.toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric', month: 'short' }));
+                        const diaData = data.find(item => item.dia === diaFormateado);
+                        valores.push(diaData ? diaData.total_ventas : 0);
+                    }
+
+                    const ctx = document.getElementById('ventasPorDia').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Ventas Totales por Día',
+                                data: valores,
+                                fill: false,
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                tension: 0.1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                },
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: 'Días'
+                                    }
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(err => console.error(err));
+
         </script>
 
 

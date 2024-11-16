@@ -1,23 +1,3 @@
-// document.getElementById("botonEnviarBanda").addEventListener("click", () => {
-//   const nombreBanda = document.getElementById("nombre-banda");
-//   const descripcionBanda = document.getElementById("descripcion-banda");
-//   const fotoBanda = document.getElementById("foto-banda");
-//   const formData = new FormData;
-//   formData.append("nombre", nombreBanda.value);
-//   formData.append("descripcion", descripcionBanda.value);
-// //   formData.append("foto", fotoBanda.files[0]);
-
-//   fetch("/bandas/insertar", {
-//     method: "POST",
-//     headers: {
-//         'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify(formData),
-//   }).catch((error) => {
-//     console.error("Error al hacer la peticion:", error);
-//   });
-// });
-
 function procesar() {
   console.log("Hola mundo");
 
@@ -122,29 +102,22 @@ function agregarAlCarrito(id, nombre, precio) {
 }
 
 function eliminarDelCarrito(id) {
-  // Buscar el producto en el carrito
   const producto = carrito["productos"].find((producto) => producto.id === id);
 
-  // Si el producto existe en el carrito
   if (producto) {
-    // Resta la cantidad total y el precio total del producto
     carrito["cantidadTotal"] -= producto.cantidad;
     carrito["total"] -= producto.cantidad * producto.precio;
 
-    // Eliminar el producto del carrito
     carrito["productos"] = carrito["productos"].filter(
       (producto) => producto.id !== id
     );
 
-    // Actualizamos el contador
     if (contadorCarrito) {
       contadorCarrito.textContent = carrito["cantidadTotal"];
     }
 
-    // Guardar los cambios en el sessionStorage
     guardarCarritoSession(carrito);
 
-    // Mostrar el carrito actualizado
     verCarrito();
   } else {
     console.log("Producto no encontrado en el carrito");

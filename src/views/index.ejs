@@ -1,9 +1,49 @@
 <%- include('./partials/header.ejs') %>
-    <%- include('./layouts/navbar.ejs') %>
+
+    <nav class="navbar navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand fs-3" style="margin-top: 4px;margin-left: 2px" href="/">Bat Country <i class="bi bi-house"></i></a>
+            <button class="navbar-toggler bg-dark" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel" style="width: 300px;">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+                        Menu
+                    </h5>
+                    <button type="button" class="btn-close text-reset text-primary bg-danger"
+                        data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="/bandas">Explorar bandas <i
+                                    class="bi bi-disc"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/productos">Explorar productos <i class="bi bi-cart"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/administrador">Administrador <i
+                                    class="bi bi-person-badge-fill"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
     <main>
         <img class="w-100 opacity-25" style="height: 87vh;" src="/img/ThisIsBatCountry.jpg" alt="">
-        <a href="/bandas">
-        <button class="position-fixed btn btn-primary" style="bottom:50px; left:50%">Comenzar</button>
-        </a>
+        <div style="text-align: center;">
+            <button class="btn btn-primary">
+                <a style="text-decoration: none;color:white" href="/bandas">
+                    Explorar <i class="bi bi-search"></i>
+                </a>
+            </button>
+        </div>
     </main>
-        <%- include('./partials/footer.ejs') %>
+    <%- include('./partials/footer.ejs') %>

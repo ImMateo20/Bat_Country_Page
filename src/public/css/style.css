@@ -1,0 +1,17 @@
+.productos-carr {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: center;
+    justify-items: center;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    gap: 20px;
+}
+
+.producto-carr {
+    width: 100%;
+    height: 400px;
+    background-color: rgb(85, 81, 75);
+}

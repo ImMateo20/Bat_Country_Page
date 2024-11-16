@@ -6,6 +6,9 @@ import indexRoutes from "./routes/index.routes.js";
 import productosRoutes from "./routes/productos.routes.js";
 import bandasRoutes from "./routes/bandas.routes.js";
 import contactosRoutes from "./routes/contactos.routes.js";
+import ventasRoutes from "./routes/ventas.routes.js";
+import administradorRoutes from "./routes/administrador.routes.js";
+import carritoRoutes from "./routes/carrito.routes.js";
 
 // Iniciamos express
 const app = express();
@@ -31,6 +34,9 @@ app.use(indexRoutes);
 app.use(productosRoutes);
 app.use(bandasRoutes);
 app.use(contactosRoutes);
+app.use(ventasRoutes);
+app.use(administradorRoutes);
+app.use(carritoRoutes);
 
 app.listen(PORT, () => {
   console.log(`El servidor esta corriendo en: http://localhost:${PORT}/`);

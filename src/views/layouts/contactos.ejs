@@ -1,5 +1,5 @@
 <%- include('../partials/header.ejs') %>
-    <main class="" style="height: 100vh;">
+    <main id="main-principal" class="" style="height: 100vh;">
 
         <%- include('navbar.ejs') %>
 
@@ -15,23 +15,6 @@
                     </div>
                 </div>
                 <% }); %>
-
-                    <form action="/contactos/insertar" method="post">
-                        <input id="nombre-contacto" type="text" name="contacto" placeholder="Contacto">
-                        <select name="tipo" id="">
-                            <option value="correo">Correo</option>
-                            <option value="telefono">Telefono</option>
-                            <option value="url">Url</option>
-                        </select>
-                        <select name="banda_id" id="">
-                            <% bandas.forEach(banda=> { %>
-                                <option value="<%= banda.id %>">
-                                    <%= banda.nombre %>
-                                </option>
-                                <% }) %>
-                        </select>
-                        <button id="botonEnviarContacto" type="submit">Enviar</button>
-                    </form>
 
     </main>
     <%- include('../partials/footer.ejs') %>

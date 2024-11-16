@@ -1,10 +1,8 @@
 <%- include('../partials/header.ejs') %>
-    <main class="p-1 text-bg-dark" style="height: 100vh;">
-
+    <main id="main-principal" class="p-1 text-bg-dark" style="height: 100vh;">
         <%- include('navbar.ejs') %>
             <div class="p-3 d-flex flex-wrap gap-3 justify-content-center">
                 <% if (productos.length !==0) { %>
-
                     <% productos.forEach(producto=> { %>
                         <div class="card text-center rounded-5 align-items-center justify-content-center"
                             style="overflow: hidden;width:23%;height:500px">
@@ -20,37 +18,31 @@
                                         <p class="card-text">
                                             <%= producto.descripcion %>
                                         </p>
-                                        <p class="card-text">
+                                        <!-- <p class="card-text">
                                             Cantidad: <%= producto.cantidad %>
-                                        </p>
+                                        </p> -->
                                         <p class="card-text">
-                                            Precio $: <%= producto.precio %>
+                                            <i class="bi bi-currency-dollar"></i>
+                                            <%= producto.precio %>
                                         </p>
+                                        <button class="btn btn-secondary"" onclick="
+                                            agregarAlCarrito('<%=producto.id%>',
+                                            '<%=producto.nombre%>',
+                                                '<%= producto.precio %>')">Agregar al
+                                                    carrito <i class="bi bi-cart-plus-fill"></i></button>
                                     </div>
                         </div>
-
                         <% }); %>
             </div>
             <% } else { %>
                 <h2>Aún no hay productos en venta</h2>
                 <% } %>
 
+                    <button onclick="verCarrito()" class="rounded-4 p-4 fs-1"
+                        style="position:fixed; bottom:20px; right:20px;"><i
+                            class="bi bi-cart3 text-bg-light"></i></button>
 
-                    <form class="" action="/productos/insertar" method="post" enctype="multipart/form-data">
-                        <input id="nombre-producto" type="text" name="nombre" placeholder="Nombre producto">
-                        <input id="descripcion-producto" type="text" name="descripcion" placeholder="Descripcion">
-                        <input type="number" placeholder="Cantidad" name="cantidad">
-                        <input type="number" min="0" step=".5" placeholder="Precio" name="precio">
-                        <select name="banda_id" id="">
-                            <% bandas.forEach(banda=> { %>
-                                <option value="<%= banda.id %>">
-                                    <%= banda.nombre %>
-                                </option>
-                                <% }) %>
-                        </select>
-                        <input id="foto-producto" type="file" name="imagen">
-                        <button id="botonEnviarproducto" type="submit">Agregar producto</button>
-                    </form>
-
+                    <span id="elementos-carrito" class="p-2 rounded-circle"
+                        style="text-align:center ;height:45px;width:45px; position:fixed; bottom:100px; right:5px;color:white;background-color: black">0</span>
     </main>
     <%- include('../partials/footer.ejs') %>

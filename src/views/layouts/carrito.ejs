@@ -1,0 +1,44 @@
+<div>
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+        <div class="nav navbar-nav">
+            <a class="nav-item nav-link fs-3" href="/productos"><i class="bi bi-caret-left-fill"></i> Volver</a>
+        </div>
+    </nav>
+    <div id="carro-productos" style="text-align: center;">
+        <div class="productos-carr">
+
+            <% if (productos.length !==0) { %>
+                <% productos.forEach(producto=> { %>
+                    <div class="produco-carr text-bg-light w-75 h-100 d-flex flex-column">
+                        <h3>
+                            <%= producto.nombre %>
+                        </h3>
+                        <strong>
+                            Cantidad: <%= producto.cantidad %>
+                        </strong>
+                        <strong>
+                            Precio x pieza: $<%= producto.precio %>
+                        </strong>
+                        <strong>
+                            Precio x cantidad: <%= producto.cantidad * producto.precio %>
+                        </strong>
+
+                        <button class="btn btn-danger" onclick="eliminarDelCarrito('<%= producto.id %>')">Eliminar del
+                            carro</button>
+                    </div>
+                    <% }) %>
+        </div>
+
+        <hr>
+        <h2>Productos totales: <%= cantidadTotal %>
+        </h2>
+        <h2>Total: $<%= total %>
+        </h2>
+
+
+        <button class="btn btn-success btn-lg" onclick="realizarCompra()">Finalizar compra</button>
+        <% } else { %>
+            <h1>No hay productos agregados al carrito</h1>
+            <% } %>
+    </div>
+</div>

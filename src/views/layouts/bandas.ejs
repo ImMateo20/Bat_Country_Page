@@ -1,5 +1,5 @@
 <%- include('../partials/header.ejs') %>
-    <main class="p-1 h-100 text-bg-dark">
+    <main id="main-principal" class="p-1 h-100 text-bg-dark">
 
         <%- include('navbar.ejs') %>
             <div class="p-5 d-flex flex-column gap-3">
@@ -22,13 +22,5 @@
 
                     <% }); %>
             </div>
-
-            <form action="/bandas/insertar" method="post" enctype="multipart/form-data">
-                <input id="nombre-banda" type="text" name="nombre" placeholder="Nombre de la banda">
-                <input id="descripcion-banda" type="text" name="descripcion" placeholder="Descripcion de la banda">
-                <input id="foto-banda" type="file" name="foto">
-                <button id="botonEnviarBanda" type="submit">Agregar banda</button>
-            </form>
-
     </main>
     <%- include('../partials/footer.ejs') %>

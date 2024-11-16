@@ -1,0 +1,82 @@
+<%- include('../partials/header.ejs') %>
+    <main id="main-principal" class="p-1 text-bg-dark" style="height: 100vh;">
+
+        <div class="d-flex flex-row">
+
+            <nav class="navbar navbar-expand navbar-dark bg-dark d-flex flex-column">
+                <div class="nav navbar-nav" style="top:20px">
+                    <a class="nav-item nav-link fs-3" href="/"><i class="bi bi-caret-left-fill"></i> Volver</a>
+                </div>
+                <div class="nav navbar-nav" style="top:20px">
+                    <a class="nav-item nav-link fs-3" href="/ventas"><i class="bi bi-diagram-3"></i> Ventas</a>
+                </div>
+            </nav>
+
+
+            <div class="d-flex flex-row gap-5 justify-content-center align-items-center w-80" style="margin: 0 auto;">
+                <div class="d-flex flex-column">
+                    <h3 class="text-bg-dark">Agregar nueva banda</h3>
+                    <form class="d-flex flex-column" action="/bandas/insertar" method="post"
+                        enctype="multipart/form-data">
+                        <input class="form-control" id="nombre-banda" type="text" name="nombre"
+                            placeholder="Nombre de la banda">
+                        <input class="form-control" id="descripcion-banda" type="text" name="descripcion"
+                            placeholder="Descripcion de la banda">
+                        <input class="form-control" id="foto-banda" type="file" name="foto">
+                        <button class="btn btn-success" id="botonEnviarBanda" type="submit">Agregar banda</button>
+                    </form>
+                </div>
+                <% if (typeof bandas !=='undefined' ) { %>
+                    <div class="d-flex flex-column">
+                        <h3 class="text-bg-dark">Agregar nuevo producto</h3>
+                        <form class="d-flex flex-column" action="/productos/insertar" method="post"
+                            enctype="multipart/form-data">
+                            <input class="form-control" id="nombre-producto" type="text" name="nombre"
+                                placeholder="Nombre producto">
+                            <input class="form-control" id="descripcion-producto" type="text" name="descripcion"
+                                placeholder="Descripcion">
+                            <input class="form-control" type="number" min="0" placeholder="Cantidad" name="cantidad">
+                            <input class="form-control" type="number" min="0" step=".5" placeholder="Precio"
+                                name="precio">
+                            <select class="form-select" name="banda_id" id="">
+                                <% bandas.forEach(banda=> { %>
+                                    <option value="<%= banda.id %>">
+                                        <%= banda.nombre %>
+                                    </option>
+                                    <% }) %>
+                            </select>
+                            <input class="form-control" id="foto-producto" type="file" name="imagen">
+                            <button class="btn btn-success" id="botonEnviarproducto" type="submit">Agregar
+                                producto</button>
+                        </form>
+                    </div>
+                    <% } %>
+                        <% if (typeof bandas !=='undefined' ) { %>
+                            <div class="d-flex flex-column">
+                                <h3 class="text-bg-dark">Agregar nuevo contacto</h3>
+                                <form class="d-flex flex-column" action="/contactos/insertar" method="post">
+                                    <input class="form-control" id="nombre-contacto" type="text" name="contacto"
+                                        placeholder="Contacto">
+                                    <select class="form-select" name="tipo" id="">
+                                        <option value="correo">Correo</option>
+                                        <option value="telefono">Telefono</option>
+                                        <option value="url">Url</option>
+                                    </select>
+                                    <select class="form-select" name="banda_id" id="">
+                                        <% bandas.forEach(banda=> { %>
+                                            <option value="<%= banda.id %>">
+                                                <%= banda.nombre %>
+                                            </option>
+                                            <% }) %>
+                                    </select>
+                                    <button class="btn btn-success" id="botonEnviarContacto" type="submit">Agregar
+                                        contacto</button>
+                                </form>
+                            </div>
+                            <% } %>
+
+            </div>
+        </div>
+    </main>
+
+    <%- include('../partials/footer.ejs') %>

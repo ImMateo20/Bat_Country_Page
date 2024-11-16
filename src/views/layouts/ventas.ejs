@@ -1,0 +1,100 @@
+<%- include('../partials/header.ejs') %>
+    <main id="main-principal" class="p-1 text-bg-dark" style="height: 100vh;">
+
+        <nav class="navbar navbar-expand navbar-dark bg-dark">
+            <div class="nav navbar-nav" style="top:20px">
+                <a class="nav-item nav-link fs-3" href="/administrador"><i class="bi bi-caret-left-fill"></i> Volver</a>
+            </div>
+        </nav>
+
+        <div class="container mt-5">
+            <h1 class="text-center">Productos Más Vendidos</h1>
+            <canvas id="productosMasVendidos" width="400" height="200"></canvas>
+        </div>
+        <div class="container mt-5">
+            <h1 class="text-center">Ventas por Hora en las Últimas 5 Horas</h1>
+            <canvas id="ventasPorHora" width="400" height="200"></canvas>
+        </div>
+
+        <script>
+            fetch('/ventas/productos-mas-vendidos')
+                .then(response => response.json())
+                .then(data => {
+                    const labels = data.map(item => item.producto);
+                    const valores = data.map(item => item.total_vendido);
+
+                    const ctx = document.getElementById('productosMasVendidos').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'bar', 
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Cantidad Vendida',
+                                data: valores,
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(255, 206, 86, 0.2)'
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(err => console.error(err));
+
+            fetch('/ventas/ventas-ultimas-horas')
+                .then(response => response.json())
+                .then(data => {
+                    const labels = [];
+                    const valores = [];
+
+                    for (let i = 5; i > 0; i--) {
+                        const hora = data.find(item => item.hora === i);
+                        labels.push(`Hace ${i} hora(s)`);
+                        valores.push(hora ? hora.total_ventas : 0);
+                    }
+
+                    // Crear el gráfico con Chart.js
+                    const ctx = document.getElementById('ventasPorHora').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'line', 
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Ventas Totales por Hora',
+                                data: valores,
+                                fill: false,
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                tension: 0.1 
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(err => console.error(err));
+        </script>
+
+
+
+    </main>
+    <%- include('../partials/footer.ejs') %>

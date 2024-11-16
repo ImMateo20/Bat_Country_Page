@@ -1,33 +1,29 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-    <a class="navbar-brand fs-3" href="/">Bat Country</a>
+    <a class="navbar-brand fs-3" href="/">Bat Country <i class="bi bi-house"></i></a>
     <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId"
         aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation"></button>
     <div class="collapse navbar-collapse" id="collapsibleNavId">
-        <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+        <ul class="navbar-nav me-auto mt-2 mt-lg-0" id="miLista">
             <li class="nav-item">
-                <a class="nav-link active" href="/bandas" aria-current="page">Bandas<span
+                <a class="nav-link" href="/bandas" aria-current="page"><i class="bi bi-disc"></i> Bandas<span
                         class="visually-hidden">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/productos">Todos los productos</a>
+                <a class="nav-link" href="/productos"><i class="bi bi-cart"></i> Todos los productos</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">Producto x Banda</a>
+                    aria-haspopup="true" aria-expanded="false"><i class="bi bi-people-fill"></i> Producto x Banda</a>
                 <div class="dropdown-menu" aria-labelledby="dropdownId">
                     <% if (typeof bandas !=='undefined' ) { %>
                         <% bandas.forEach(banda=> { %>
-                            <a class="dropdown-item" href='/productos/<%= banda.id %>'><%= banda.nombre %></a>
+                            <a class="dropdown-item" href='/productos/<%= banda.id %>'>
+                                <%= banda.nombre %>
+                            </a>
                             <% }) %>
                                 <% } %>
                 </div>
             </li>
         </ul>
-        <form class="d-flex my-2 my-lg-0">
-            <input class="form-control me-sm-2" type="text" placeholder="Search" />
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-                Buscar
-            </button>
-        </form>
     </div>
 </nav>

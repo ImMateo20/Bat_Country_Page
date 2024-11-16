@@ -22,14 +22,6 @@ CREATE TABLE
         foreign key (banda_id) references bandas (id) on delete cascade
     );
 
-CREATE TABLE
-    contactos (
-        id int not null auto_increment primary key,
-        contacto varchar(100) not null,
-        tipo ENUM ('correo', 'telefono', 'url'),
-        banda_id int not null,
-        foreign key (banda_id) references bandas (id) on delete cascade
-    );
 
 CREATE TABLE
     ventas (
@@ -46,4 +38,13 @@ CREATE TABLE
         cantidad int,
         foreign key (venta_id) references ventas (id) on delete cascade,
         foreign key (producto_id) references productos (id) on delete cascade
+    );
+
+CREATE TABLE
+    contactos (
+        id int not null auto_increment primary key,
+        contacto varchar(100) not null,
+        tipo ENUM ('correo', 'telefono', 'url'),
+        banda_id int not null,
+        foreign key (banda_id) references bandas (id) on delete cascade
     );

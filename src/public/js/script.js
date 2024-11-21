@@ -139,3 +139,13 @@ function reiniciarCarrito() {
 
   console.log("El carrito ha sido reiniciado");
 }
+
+
+
+
+
+
+
+function eliminarProductoAdministrador(id) {
+  fetch('/administrador/productos/eliminar')
+}

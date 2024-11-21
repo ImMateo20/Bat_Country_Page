@@ -4,7 +4,31 @@ const mostrarAdministracion = async (req, res) => {
   try {
     const query = "SELECT id, nombre FROM bandas";
     const [rows] = await db.query(query);
-    res.render("layouts/administrador.ejs", { bandas: rows });
+    res.render("admin/administrador.ejs", { bandas: rows });
+  } catch (error) {
+    console.error(`Error en la consulta: `, error);
+    res.status(500).send("Error en la consulta");
+  }
+};
+
+const mostrarProductos = async (req, res) => {
+  try {
+    const query = "SELECT * FROM productos";
+    const [rows] = await db.query(query);
+    console.log(rows);
+    res.render("admin/productos.ejs", { productos: rows });
+  } catch (error) {
+    console.error(`Error en la consulta: `, error);
+    res.status(500).send("Error en la consulta");
+  }
+};
+
+const eliminarProducto = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const query = `DELETE FROM productos WHERE id=${id}`;
+    const resultado = await db.query(query);
+    res.redirect("/administrador/productos");
   } catch (error) {
     console.error(`Error en la consulta: `, error);
     res.status(500).send("Error en la consulta");
@@ -12,7 +36,7 @@ const mostrarAdministracion = async (req, res) => {
 };
 
 const mostrarVentas = (req, res) => {
-  res.render("layouts/ventas.ejs");
+  res.render("admin/ventas.ejs");
 };
 
 const obtenerProductosMasVendidos = async (req, res) => {
@@ -29,7 +53,7 @@ const obtenerProductosMasVendidos = async (req, res) => {
         p.nombre
       ORDER BY 
         total_vendido DESC
-      LIMIT 3;
+      LIMIT 10;
     `;
 
     const [result] = await db.query(query);
@@ -93,6 +117,8 @@ const obtenerVentasUltimaSemana = async (req, res) => {
 
 export {
   mostrarVentas,
+  mostrarProductos,
+  eliminarProducto,
   obtenerProductosMasVendidos,
   obtenerVentasUltimoDia,
   obtenerVentasUltimaSemana,

@@ -1,0 +1,34 @@
+<%- include('../partials/header.ejs') %>
+    <main id="main-principal" class="p-1 text-bg-dark" style="height: 100vh;">
+
+        <nav class="navbar navbar-expand navbar-dark bg-dark">
+            <div class="nav navbar-nav" style="top:20px">
+                <a class="nav-item nav-link fs-3" href="/administrador"><i class="bi bi-caret-left-fill"></i> Volver</a>
+            </div>
+        </nav>
+
+            <div class="p-5 d-flex flex-column gap-3">
+
+                <% bandas.forEach(banda=> { %>
+                    <div class="card text-start d-flex flex-row rounded-5 align-items-center" style="height: 350px;">
+                        <% if (banda.foto) { %>
+                            <img class="card-img-top rounded-5 w-50" style="height: 348px"
+                                src="data:image/jpeg;base64, <%= banda.foto.toString('base64') %>" alt="Title" />
+                            <% } %>
+                                <div class="card-body">
+                                    <h2 class="card-title align-self-center">
+                                        <%= banda.nombre%>
+                                    </h2>
+                                    <p class="card-text">
+                                        <%= banda.descripcion %>
+                                    </p>
+                                </div>
+                                <a class="btn btn-danger align-self-start m-4"" href="/administrador/bandas/<%= banda.id %>">Eliminar <i
+                                    class="bi bi-trash"></i></a>
+                    </div>
+
+                    <% }); %>
+            </div>
+
+    </main>
+    <%- include('../partials/footer.ejs') %>

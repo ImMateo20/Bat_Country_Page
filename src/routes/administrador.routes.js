@@ -3,6 +3,8 @@ import {
   mostrarAdministracion,
   mostrarProductos,
   eliminarProducto,
+  mostrarBandas,
+  eliminarBanda,
   mostrarVentas,
   obtenerProductosMasVendidos,
   obtenerVentasUltimoDia,
@@ -14,6 +16,8 @@ const router = express.Router();
 router.get("/administrador", mostrarAdministracion);
 router.get("/administrador/productos", mostrarProductos);
 router.get("/administrador/productos/:id", eliminarProducto);
+router.get("/administrador/bandas", mostrarBandas);
+router.get("/administrador/bandas/:id", eliminarBanda);
 router.get("/administrador/ventas", mostrarVentas);
 router.get(
   "/administrador/productos-mas-vendidos",

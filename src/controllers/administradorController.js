@@ -35,6 +35,30 @@ const eliminarProducto = async (req, res) => {
   }
 };
 
+const mostrarBandas = async (req, res) => {
+  try {
+    const query = "SELECT * FROM bandas";
+    const [rows] = await db.query(query);
+    console.log(rows);
+    res.render("admin/bandas.ejs", { bandas: rows });
+  } catch (error) {
+    console.error(`Error en la consulta: `, error);
+    res.status(500).send("Error en la consulta");
+  }
+};
+
+const eliminarBanda = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const query = `DELETE FROM bandas WHERE id=${id}`;
+    const resultado = await db.query(query);
+    res.redirect("/administrador/bandas");
+  } catch (error) {
+    console.error(`Error en la consulta: `, error);
+    res.status(500).send("Error en la consulta");
+  }
+};
+
 const mostrarVentas = (req, res) => {
   res.render("admin/ventas.ejs");
 };
@@ -119,6 +143,8 @@ export {
   mostrarVentas,
   mostrarProductos,
   eliminarProducto,
+  mostrarBandas,
+  eliminarBanda,
   obtenerProductosMasVendidos,
   obtenerVentasUltimoDia,
   obtenerVentasUltimaSemana,
